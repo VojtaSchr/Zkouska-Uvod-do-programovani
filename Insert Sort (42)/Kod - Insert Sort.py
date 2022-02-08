@@ -1,4 +1,4 @@
-vstup = [1, 8, 2, 99, 3]
+vstup = [4, 8, 2, 99, -3, -1, 8]
 
 print("Délka vstupního seznamu je " + str(len(vstup)) + " hodnot.")
 
@@ -7,7 +7,7 @@ def InsertSort(vstup):
         a=vstup[i]
         #while i>0:
         o=i-1
-        while i>0 and a<vstup[o]:
+        while o>=0 and a<vstup[o]:
             vstup[o+1]=vstup[o]
             o=o-1
         vstup[o+1]=a  
