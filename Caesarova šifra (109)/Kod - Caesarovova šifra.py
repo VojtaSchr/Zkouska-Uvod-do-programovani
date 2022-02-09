@@ -1,13 +1,17 @@
 
-vstup = "ahojKYč 1234567890 :)"
-vystup_sif = "Výstup šifrování: "
-vystup_desif = "Výstup dešifrování: "
-vystup_prol = ""
-posun = 3
+from asyncore import read
 
-#print(ord("0"))
-#print(ord("1"))
-#print(ord("9"))
+volba_vstupu = input("Přejete si nahrát vstup jako soubor .txt? Y/N   ")
+if volba_vstupu == "Y":
+    with open("vstup_kod.txt", "r", encoding="utf-8") as r:
+        vstup=r.read()
+else:
+    vstup = input("Zadejte vstupní text:")
+
+vystup_sif = "Výstup šifrování: \n"
+vystup_desif = "Výstup dešifrování: \n"
+vystup_prol = ""
+posun = 0
 
 def sifrator(input, exitus, trabea):
     for i in range(len(input)):
@@ -53,7 +57,32 @@ def ProlamovacKodu(input, exitus):
         exitus+="\n"
     return exitus
 
-#sifra(vstup, vystup, posun)
-print(sifrator(vstup, vystup_sif, posun))
-print(desifrator(vstup, vystup_desif, posun))
-print(ProlamovacKodu(vstup, vystup_prol))
+volba_procesu = input("Pokud chcete šifrovat zadejte do konzole: S \n"
+"Pokud chcete dešifrovat zadejte: D \n"
+"Pokud chcete dešifrovat a neznáte hodnotu posunu zadejte: P \n")
+volba_vystupu = input("Přejete si vypsat výstup jako soubor .txt? Y/N   ")
+
+if volba_procesu == "S":
+    posun = int(input("Vložte hodnotu posunu: "))
+    print(sifrator(vstup, vystup_sif, posun))
+    if volba_vystupu == "Y":
+        with open("Vystup_Sifrovani.txt", "w", encoding="utf-8") as f:
+            f.write(sifrator(vstup, vystup_sif, posun))
+elif volba_procesu == "D":
+    posun = int(input("Vložte hodnotu posunu: "))
+    print(desifrator(vstup, vystup_desif, posun))
+    if volba_vystupu == "Y":
+        with open("Vystup_Desifrovani.txt", "w", encoding="utf-8") as f:
+            f.write(desifrator(vstup, vystup_desif, posun))
+elif volba_procesu == "P":
+    print(ProlamovacKodu(vstup, vystup_prol))
+    if volba_vystupu == "Y":
+        with open("Vystup_Prolamovace_Kodu.txt", "w", encoding="utf-8") as f:
+            f.write(ProlamovacKodu(vstup, vystup_prol))
+else:
+    print("Zadejte pouze možnosti z nabídky výše, více toho program neumí :/")
+
+#print(sifrator(vstup, vystup_sif, posun))
+#print(desifrator(vstup, vystup_desif, posun))
+#print(ProlamovacKodu(vstup, vystup_prol))
+
