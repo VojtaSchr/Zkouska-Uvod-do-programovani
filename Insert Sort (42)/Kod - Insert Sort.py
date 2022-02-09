@@ -1,6 +1,6 @@
-vstup = [4, 8, 2, 99, -3, -1, 8]
+seznam = [4, 8, 2, 0.5, 99, -3, -1, 8]
 
-print("Délka vstupního seznamu je " + str(len(vstup)) + " hodnot.")
+print("Délka vstupního seznamu je " + str(len(seznam)) + " hodnot.")
 
 def InsertSort(vstup):
     for i in range(len(vstup)):
@@ -13,7 +13,7 @@ def InsertSort(vstup):
         vstup[o+1]=a  
     return()
 
-InsertSort(vstup)
+InsertSort(seznam)
 print("Setřídění seznam čísel:", end=" ")
-for i in range(len(vstup)):
-    print(vstup[i], end=" ")
+for i in range(len(seznam)):
+    print(seznam[i], end=", ")
