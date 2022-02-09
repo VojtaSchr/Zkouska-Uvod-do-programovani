@@ -1,11 +1,12 @@
-vstup = "dhoj"
-vystup = ""
+vstup = "ahoj"
+vystup = "Výstup: "
+posun = 3
 
-def sifra(vstup, vystup):
-    for i in range(len(vstup)):
-        ave = vstup[i]
-        vystup+= chr(ord(ave)+3)
-    return(vystup)
+def sifra(input, exitus, trabea):
+    for i in range(len(input)):
+        ave = input[i]
+        exitus += chr((ord(ave)+ trabea - 97) %26 + 97)
+    return exitus
 
-sifra(vstup, vystup)
-print(vystup)
+#sifra(vstup, vystup, posun)
+print(sifra(vstup, vystup, posun))
