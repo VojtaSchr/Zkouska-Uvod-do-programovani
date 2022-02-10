@@ -1,55 +1,73 @@
 
 from asyncore import read
-
-volba_vstupu = input("Přejete si nahrát vstup jako soubor .txt? Y/N   ")
-if volba_vstupu == "Y":
-    with open("vstup_kod.txt", "r", encoding="utf-8") as r:
-        vstup=r.read()
+#User choose type of input
+input_choise = input("Do you want to upload the input as a file .txt? Y/N   ")
+#If user choose to use .txt file as input
+if input_choise == "Y":
+    #Open .txt file and input it into input_data
+    with open("Vstup_Kod.txt", "r", encoding="utf-8") as r:
+        input_data = r.read()
 else:
-    vstup = input("Zadejte vstupní text:")
+    input_data = input("Input text:")
 
-vystup_sif = "Výstup šifrování: \n"
-vystup_desif = "Výstup dešifrování: \n"
-vystup_prol = ""
-posun = 0
+output_en = "Encoding output: \n"
+output_de = "Decoding output: \n"
+output_br = ""
+shift = 0
 
-def sifrator(input, exitus, trabea):
+def encoder(input, exitus, trabea):
+    #Function encrypt input text
+    #Function is repeated according to the number of characters in the input
     for i in range(len(input)):
         ave = input[i]
+        #Encrypt capital letter
         if 97<=ord(ave)<=122:
             exitus += chr((ord(ave)+ trabea - 97) %26 + 97)
+        #Encrypt lowercase letter
         elif 65<=ord(ave)<=90:
             exitus += chr((ord(ave)+ trabea - 65) %26 + 65)
+        #Encrypt numbers
         elif 48<=ord(ave)<=57:
             exitus += chr((ord(ave)+ trabea - 48) %10 + 48)
         else:
             exitus += ave
     return exitus
 
-def desifrator(input, exitus, trabea):
+def decoder(input, exitus, trabea):
+    #Function decrypt input text
+    #Function is repeated according to the number of characters in the input
     for i in range(len(input)):
         ave = input[i]
+        #Decrypt capital letter
         if 97<=ord(ave)<=122:
             exitus += chr((ord(ave)- trabea - 97) %26 + 97)
+        #Decrypt lowercase letter
         elif 65<=ord(ave)<=90:
             exitus += chr((ord(ave)- trabea - 65) %26 + 65)
+        #Decrypt numbers
         elif 48<=ord(ave)<=57:
             exitus += chr((ord(ave)- trabea - 48) %10 + 48)
         else:
             exitus += ave
     return exitus
 
-def ProlamovacKodu(input, exitus):
+def code_breaker(input, exitus):
+    #Decoder using brute force method
     trabea=0
+    #Try all shift options
     for trabea in range(25):
         trabea+=1
         exitus+=str(trabea)+") "
+        #Function is repeated according to the number of characters in the input
         for i in range(len(input)):
             ave = input[i]
+            #Decrypt capital letter
             if 97<=ord(ave)<=122:
                 exitus += chr((ord(ave)- trabea - 97) %26 + 97)
+            #Decrypt lowercase letter
             elif 65<=ord(ave)<=90:
                 exitus += chr((ord(ave)- trabea - 65) %26 + 65)
+            #Decrypt numbers
             elif 48<=ord(ave)<=57:
                 exitus += chr((ord(ave)- trabea - 48) %10 + 48)
             else:
@@ -57,32 +75,32 @@ def ProlamovacKodu(input, exitus):
         exitus+="\n"
     return exitus
 
-volba_procesu = input("Pokud chcete šifrovat zadejte do konzole: S \n"
-"Pokud chcete dešifrovat zadejte: D \n"
-"Pokud chcete dešifrovat a neznáte hodnotu posunu zadejte: P \n")
-volba_vystupu = input("Přejete si vypsat výstup jako soubor .txt? Y/N   ")
+volba_procesu = input("To encrypt, type in the console: E \n"
+"To decrypt, type in the console: D \n"
+"To break code, type in the console: B \n")
+volba_vystupu = input("Do you want to print the output as a file? .txt? Y/N   ")
 
-if volba_procesu == "S":
-    posun = int(input("Vložte hodnotu posunu: "))
-    print(sifrator(vstup, vystup_sif, posun))
+#If user choose to do encoding
+if volba_procesu == "E":
+    shift = int(input("Input shift: "))
+    print(encoder(input_data, output_en, shift))
     if volba_vystupu == "Y":
         with open("Vystup_Sifrovani.txt", "w", encoding="utf-8") as f:
-            f.write(sifrator(vstup, vystup_sif, posun))
+            f.write(encoder(input_data, output_en, shift))
+#If user choose to do decoding
 elif volba_procesu == "D":
-    posun = int(input("Vložte hodnotu posunu: "))
-    print(desifrator(vstup, vystup_desif, posun))
+    shift = int(input("Input shift: "))
+    print(decoder(input_data, output_de, shift))
     if volba_vystupu == "Y":
         with open("Vystup_Desifrovani.txt", "w", encoding="utf-8") as f:
-            f.write(desifrator(vstup, vystup_desif, posun))
-elif volba_procesu == "P":
-    print(ProlamovacKodu(vstup, vystup_prol))
+            f.write(decoder(input_data, output_de, shift))
+#If user choose to do decoding by brute force method
+elif volba_procesu == "B":
+    print(code_breaker(input_data, output_br))
     if volba_vystupu == "Y":
         with open("Vystup_Prolamovace_Kodu.txt", "w", encoding="utf-8") as f:
-            f.write(ProlamovacKodu(vstup, vystup_prol))
+            f.write(code_breaker(input_data, output_br))
 else:
-    print("Zadejte pouze možnosti z nabídky výše, více toho program neumí :/")
+    print("Enter only the options from the menu above.")
 
-#print(sifrator(vstup, vystup_sif, posun))
-#print(desifrator(vstup, vystup_desif, posun))
-#print(ProlamovacKodu(vstup, vystup_prol))
 
