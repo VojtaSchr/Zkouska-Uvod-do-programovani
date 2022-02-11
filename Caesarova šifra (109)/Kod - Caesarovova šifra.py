@@ -78,7 +78,7 @@ def code_breaker(input, exitus):
 funct = input("To encrypt, type in the console: E \n"
 "To decrypt, type in the console: D \n"
 "To break code, type in the console: B \n")
-output_file = input("Do you want to print the output as a file? .txt? Y/N   ")
+output_file = input("Do you want to print the output as a file .txt? Y/N   ")
 
 #If user choose to do encoding
 if funct == "E":
