@@ -1,3 +1,4 @@
+import csv
 list_in = [4, 8, 2, 0.5, 99, -3, -1, 8]
 
 print("Length of imput list is " + str(len(list_in)) + " numbers.")
@@ -20,3 +21,13 @@ print("Sorted list:", end=" ")
 #Print sorted output
 for i in range(len(list_in)):
     print(list_in[i], end=", ")
+output_file_txt = input("\n Do you want to print the output as a file .txt? Y/N   ")
+if output_file_txt == "Y":
+    with open("Vystup_Sort.txt", "w", encoding="utf-8") as f:
+        for i in range(len(list_in)):
+            f.write(str(list_in[i]) + ", ")
+output_file_csv = input("\n Do you want to print the output as a file .csv? Y/N   ")
+if output_file_csv == "Y":
+    with open("Vystup_Sort.csv", "w", encoding="utf-8") as f:
+        b=csv.writer(f, delimiter=";")
+        b.writerow(list_in)
