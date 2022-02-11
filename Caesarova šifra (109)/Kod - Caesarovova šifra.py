@@ -75,29 +75,29 @@ def code_breaker(input, exitus):
         exitus+="\n"
     return exitus
 
-volba_procesu = input("To encrypt, type in the console: E \n"
+funct = input("To encrypt, type in the console: E \n"
 "To decrypt, type in the console: D \n"
 "To break code, type in the console: B \n")
-volba_vystupu = input("Do you want to print the output as a file? .txt? Y/N   ")
+output_file = input("Do you want to print the output as a file? .txt? Y/N   ")
 
 #If user choose to do encoding
-if volba_procesu == "E":
+if funct == "E":
     shift = int(input("Input shift: "))
     print(encoder(input_data, output_en, shift))
-    if volba_vystupu == "Y":
+    if output_file == "Y":
         with open("Vystup_Sifrovani.txt", "w", encoding="utf-8") as f:
             f.write(encoder(input_data, output_en, shift))
 #If user choose to do decoding
-elif volba_procesu == "D":
+elif funct == "D":
     shift = int(input("Input shift: "))
     print(decoder(input_data, output_de, shift))
-    if volba_vystupu == "Y":
+    if output_file == "Y":
         with open("Vystup_Desifrovani.txt", "w", encoding="utf-8") as f:
             f.write(decoder(input_data, output_de, shift))
 #If user choose to do decoding by brute force method
-elif volba_procesu == "B":
+elif funct == "B":
     print(code_breaker(input_data, output_br))
-    if volba_vystupu == "Y":
+    if output_file == "Y":
         with open("Vystup_Prolamovace_Kodu.txt", "w", encoding="utf-8") as f:
             f.write(code_breaker(input_data, output_br))
 else:
