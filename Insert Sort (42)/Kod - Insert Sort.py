@@ -21,11 +21,15 @@ print("Sorted list:", end=" ")
 #Print sorted output
 for i in range(len(list_in)):
     print(list_in[i], end=", ")
+
+#Print sorted output into txt file
 output_file_txt = input("\n Do you want to print the output as a file .txt? Y/N   ")
 if output_file_txt == "Y":
     with open("Vystup_Sort.txt", "w", encoding="utf-8") as f:
         for i in range(len(list_in)):
             f.write(str(list_in[i]) + ", ")
+
+#Print sorted output into csv file            
 output_file_csv = input("\n Do you want to print the output as a file .csv? Y/N   ")
 if output_file_csv == "Y":
     with open("Vystup_Sort.csv", "w", encoding="utf-8") as f:
