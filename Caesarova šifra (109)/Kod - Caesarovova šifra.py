@@ -1,5 +1,8 @@
 
 from asyncore import read
+from re import A
+from tkinter import N
+
 #User choose type of input
 input_choise = input("Do you want to upload the input as a file .txt? Y/N   ")
 #If user choose to use .txt file as input
@@ -14,21 +17,43 @@ output_en = "Encoding output: \n"
 output_de = "Decoding output: \n"
 output_br = ""
 shift = 0
+A=97
+a=65
+Z=122
+z=90
+digit_zero=48
+digit_nine=57
+
+def CheckForCzech2(input):
+    NonCzech = input.replace("Á",chr(ord("A")))
+    print(NonCzech)
+    input_data = NonCzech
+    print(input_data)
+    return(input_data)
+
+def CheckForCzechs(letter):
+    if ord(letter)==ord("Á"):
+        letter="A"
+        ave=letter
+    return()
+    
 
 def encoder(input, exitus, trabea):
     #Function encrypt input text
     #Function is repeated according to the number of characters in the input
     for i in range(len(input)):
         ave = input[i]
+        CheckForCzechs(ave)
+        print(ave)
         #Encrypt capital letter
-        if 97<=ord(ave)<=122:
-            exitus += chr((ord(ave)+ trabea - 97) %26 + 97)
+        if A<=ord(ave)<=Z:
+            exitus += chr((ord(ave)+ trabea - A) %26 + A)
         #Encrypt lowercase letter
-        elif 65<=ord(ave)<=90:
-            exitus += chr((ord(ave)+ trabea - 65) %26 + 65)
+        elif a<=ord(ave)<=z:
+            exitus += chr((ord(ave)+ trabea - a) %26 + a)
         #Encrypt numbers
-        elif 48<=ord(ave)<=57:
-            exitus += chr((ord(ave)+ trabea - 48) %10 + 48)
+        elif digit_zero<=ord(ave)<=digit_nine:
+            exitus += chr((ord(ave)+ trabea - digit_zero) %10 + digit_zero)
         else:
             exitus += ave
     return exitus
@@ -39,14 +64,14 @@ def decoder(input, exitus, trabea):
     for i in range(len(input)):
         ave = input[i]
         #Decrypt capital letter
-        if 97<=ord(ave)<=122:
-            exitus += chr((ord(ave)- trabea - 97) %26 + 97)
+        if A<=ord(ave)<=Z:
+            exitus += chr((ord(ave)- trabea - A) %26 + A)
         #Decrypt lowercase letter
-        elif 65<=ord(ave)<=90:
-            exitus += chr((ord(ave)- trabea - 65) %26 + 65)
+        elif a<=ord(ave)<=z:
+            exitus += chr((ord(ave)- trabea - a) %26 + a)
         #Decrypt numbers
-        elif 48<=ord(ave)<=57:
-            exitus += chr((ord(ave)- trabea - 48) %10 + 48)
+        elif digit_zero<=ord(ave)<=digit_nine:
+            exitus += chr((ord(ave)- trabea - digit_zero) %10 + digit_zero)
         else:
             exitus += ave
     return exitus
@@ -62,18 +87,20 @@ def code_breaker(input, exitus):
         for i in range(len(input)):
             ave = input[i]
             #Decrypt capital letter
-            if 97<=ord(ave)<=122:
-                exitus += chr((ord(ave)- trabea - 97) %26 + 97)
+            if A<=ord(ave)<=Z:
+                exitus += chr((ord(ave)- trabea - A) %26 + A)
             #Decrypt lowercase letter
-            elif 65<=ord(ave)<=90:
-                exitus += chr((ord(ave)- trabea - 65) %26 + 65)
+            elif a<=ord(ave)<=z:
+                exitus += chr((ord(ave)- trabea - a) %26 + a)
             #Decrypt numbers
-            elif 48<=ord(ave)<=57:
-                exitus += chr((ord(ave)- trabea - 48) %10 + 48)
+            elif digit_zero<=ord(ave)<=digit_nine:
+                exitus += chr((ord(ave)- trabea - digit_zero) %10 + digit_zero)
             else:
                 exitus += ave
         exitus+="\n"
     return exitus
+
+CheckForCzech2(input_data)
 
 funct = input("To encrypt, type in the console: E \n"
 "To decrypt, type in the console: D \n"
